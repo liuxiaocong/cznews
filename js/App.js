@@ -3,27 +3,30 @@
  */
 import React from "react";
 import { StyleSheet, View, Text, Alert, Button } from "react-native";
+import reducer from './reduces'
+import { addNavigationHelpers } from 'react-navigation';
+import AppNavigator from './reduces/AppNavigator'
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 30,
-    flex: 1
-  }
-});
+const store = createStore(reducer);
+
+const AppWithNavigationState = connect(state => ({
+  nav: state.nav,
+}))(({ dispatch, nav }) => (
+  <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })}/>
+));
 
 class App extends React.Component {
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
+  constructor() {
+    super();
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>CZ news</Text>
-      </View>
+      <Provider store={store}>
+        <AppWithNavigationState />
+      </Provider>
     )
   }
 }
