@@ -2,10 +2,8 @@
  * Created by xiaoconglau on 29/03/2017.
  */
 import { connect } from 'react-redux'
-import HomeView from './HomeView'
+import TabView from './TabView'
 import { StyleSheet, View, Text, Alert } from "react-native";
-import React, { PureComponent } from 'react';
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 var DOMParser = require('react-native-html-parser').DOMParser;
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -33,9 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 });
 
-const HomeComponent = connect(
+const TabComponent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeView)
+)(TabView)
 
-export default HomeComponent
+export default TabComponent

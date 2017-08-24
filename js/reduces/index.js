@@ -4,11 +4,13 @@
 import { combineReducers } from 'redux'
 import newsReduces from "./newsReduces"
 import navReduces from "./navReduces"
+import configReduces from "./configReduces"
 
 
 const app = combineReducers({
   newsStore: newsReduces,
-  nav: navReduces
+  navStore: navReduces,
+  configStore: configReduces
 })
 
 export default app

@@ -6,25 +6,58 @@ import {
   AppRegistry,
   Text,
   View,
+  Alert,
+  StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import { PureComponent } from 'react';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 const commonStyles = require('../style/commonStyles');
+const FirstRoute = () => <View style={[ commonStyles.wrapper, { backgroundColor: '#ff4081' } ]} />;
+const SecondRoute = () => <View style={[ commonStyles.wrapper, { backgroundColor: '#673ab7' } ]} />;
+import NewsComponent from '../news/NewsComponent';
 class HomeView extends React.Component {
   static navigationOptions = {
     title: 'Home',
   };
 
+  _handleIndexChange = index => this.setState({ index });
+
+  _renderHeader = props => <TabBar {...props} />;
+
+
+  _renderScene = ({ route }) => {
+    switch (route.key) {
+      case '1':
+        return  <NewsComponent type="1"/>;
+      case '2':
+        return  <NewsComponent type="2"/>;
+      default:
+        return null;
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: 0,
+      routes: [
+        { key: '1', title: 'First' },
+        { key: '2', title: 'Second' },
+        { key: '3', title: 'Third' },
+      ],
+    };
+  }
+
   render() {
     return (
-      <View style={[commonStyles.wrapper]}>
-        <Text>{JSON.stringify(this.props.newsStore)}</Text>
-        <TouchableOpacity
-          onPress={()=>{
-          this.props.onTapAdd()
-        }}>
-          <Text>Add</Text>
-        </TouchableOpacity>
-      </View>
+      <TabViewAnimated
+        style={commonStyles.wrapper}
+        navigationState={this.state}
+        renderScene={this._renderScene}
+        renderHeader={this._renderHeader}
+        onIndexChange={this._handleIndexChange}
+      />
     );
   }
 

@@ -12,7 +12,7 @@ import { createStore } from 'redux'
 const store = createStore(reducer);
 
 const AppWithNavigationState = connect(state => ({
-  nav: state.nav,
+  nav: state.navStore,
 }))(({ dispatch, nav }) => (
   <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })}/>
 ));
